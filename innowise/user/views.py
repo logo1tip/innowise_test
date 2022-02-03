@@ -1,7 +1,9 @@
 from user.models import CustomUser
 from user.serializers import UserSerializer
 from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
 from drf_spectacular.utils import extend_schema
+from task.permissions import IsSupport, IsUser
 
 
 
@@ -12,6 +14,7 @@ class UserList(generics.ListCreateAPIView):
     
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsSupport | IsAdminUser]
 
 
 
@@ -22,3 +25,4 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsSupport | IsUser | IsAdminUser]
