@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+
+  db:
+    image: postgres:12
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=inno_wise
+      - POSTGRES_PASSWORD=innowise
+      - POSTGRES_DB=inno_wise
+  django:
+    container_name: inno_wise
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: bash -c "python /usr/src/inno_test/manage.py migrate --noinput &&
+             python /usr/src/inno_test/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/usr/src/inno_test
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+       
+volumes:
+  pg_data:
