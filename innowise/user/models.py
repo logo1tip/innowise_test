@@ -1,21 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
+from django.shortcuts import reverse
 
 
 class CustomUser(AbstractUser):
 
-    USER = "US"
-    SUPPORT = "SP"
-    ROLE = [
-        (USER, "User"),
-        (SUPPORT, "Support"),
-    ]
-    role = models.CharField(
-        choices=ROLE,
-        max_length=2,
-        verbose_name="Role",
-    )
+    class UserRole(models.TextChoices):
+        USER = "US", _("User")
+        SUPPORT = "SP", _("Support")
 
+    role = models.CharField(
+        max_length=2,
+        choices=UserRole.choices,
+        default=UserRole.SUPPORT,
+    )
+    
+    def get_absolute_url(self):
+        return reverse("user", kwargs={"id": self.id, "name": self.username})
+    
     def __str__(self):
         return self.username
 

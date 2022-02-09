@@ -6,9 +6,9 @@ from task.views import *
 
 urlpatterns = [
     path("post_list/", PostList.as_view(), name="post_list"),
-    path("post_update/<int:pk>/", PostUpdate.as_view(), name="post_update"),
-    path("post_destroy/<int:pk>/", PostDestroy.as_view(), name="post_destroy"),
-    path("comments/<int:pk>/", CommentDetail.as_view(), name="comments"),  
+    path("post_update/<int:pk>/<str:name>/", PostUpdate.as_view(), name="post"),
+    path("post_destroy/<int:pk>/<str:name>/", PostDestroy.as_view(), name="post"),
+    path("comments/<str:name>/<int:pk>/", CommentDetail.as_view(), name="comment"),  
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -11,7 +11,7 @@ class PostList(generics.ListCreateAPIView):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsSupport | IsAdminUser]
+    permission_classes = (IsSupport | IsAdminUser)
 
 
 @extend_schema(description='For Support and Admin')
@@ -19,7 +19,7 @@ class PostUpdate(generics.RetrieveUpdateAPIView):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsSupport | IsUser | IsAdminUser]
+    permission_classes = (IsSupport | IsUser | IsAdminUser)
 
 
 @extend_schema(description='For all')
@@ -27,7 +27,7 @@ class PostDestroy(generics.DestroyAPIView):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsSupport | IsAdminUser]
+    permission_classes = (IsSupport | IsAdminUser)
 
 
 @extend_schema(description='For all')
@@ -35,4 +35,4 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [IsSupport | IsUser | IsAdminUser]
+    permission_classes = (IsSupport | IsUser | IsAdminUser)

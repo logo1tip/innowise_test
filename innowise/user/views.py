@@ -1,3 +1,4 @@
+from cgitb import lookup
 from user.models import CustomUser
 from user.serializers import UserSerializer
 from rest_framework import generics
@@ -14,7 +15,7 @@ class UserList(generics.ListCreateAPIView):
     
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsSupport | IsAdminUser]
+    permission_classes = (IsSupport | IsAdminUser)
 
 
 
@@ -25,4 +26,4 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsSupport | IsUser | IsAdminUser]
+    permission_classes = (IsSupport | IsUser | IsAdminUser)
