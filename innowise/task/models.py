@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 from user.models import CustomUser
 
@@ -34,6 +35,9 @@ class Post(models.Model):
         auto_now_add=True,
     )
 
+    def get_absolute_url(self):
+        return reverse("post", kwargs={"id": self.id, "name": self.title})
+
 
     class Meta:
         db_table = "posts"
@@ -62,6 +66,10 @@ class Comment(models.Model):
     created = models.DateTimeField(
         auto_now_add=True,
     )
+
+
+    def get_absolute_url(self):
+        return reverse("comment", kwargs={"id": self.id, "name": self.title})
 
 
     class Meta:
